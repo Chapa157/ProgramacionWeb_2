@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina de Adivinar</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            font-family: 'Arial', sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Georgia', serif; 
+            color: #b30059;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #b30059;
+            border-radius: 5px;
+            outline: none;
+            width: 60px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #b30059;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #99004d;
+        }
+
+        #resultado {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #99004d;
+        }
+    </style>
+    <script>
+        let numeroSecreto;
+        let intentos = 0;
+
+        // Función para comenzar con el juego
+        function iniciarJuego() {
+            numeroSecreto = Math.floor(Math.random() * 100) + 1;  // Math random para el numero que debemos adivinar
+            intentos = 0;
+            document.getElementById("resultado").innerHTML = "";
+            document.getElementById("intentos").innerHTML = "Intentos: 0";
+            document.getElementById("adivinar").disabled = false;
+            document.getElementById("numero").value = '';
+        }
+
+        // Función para adivinar el número
+        function adivinarNumero() {
+            let numeroUsuario = parseInt(document.getElementById("numero").value);
+            intentos++;
+
+            if (numeroUsuario === numeroSecreto) {
+                document.getElementById("resultado").innerHTML = "¡Felicidades! Adivinaste el número en " + intentos + " intentos.";
+                document.getElementById("adivinar").disabled = true;
+            } else if (numeroUsuario < numeroSecreto) {
+                document.getElementById("resultado").innerHTML = "El número es más grande.";
+            } else {
+                document.getElementById("resultado").innerHTML = "El número es más pequeño.";
+            }
+
+            document.getElementById("intentos").innerHTML = "Intentos: " + intentos;
+        }
+    </script>
+</head>
+<body onload="iniciarJuego()">
+    <div>
+        <h1>Máquina de Adivinar</h1>
+        <p>Adivina el número entre 1 y 100:</p>
+        <input type="number" id="numero" min="1" max="100">
+        <br>
+        <button id="adivinar" onclick="adivinarNumero()">Adivinar</button>
+        <p id="resultado"></p>
+        <p id="intentos">Intentos: 0</p>
+        <button onclick="iniciarJuego()">Reiniciar</button>
+    </div>
+</body>
+</html>
+
